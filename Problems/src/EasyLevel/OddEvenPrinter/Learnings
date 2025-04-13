@@ -1,0 +1,6 @@
+- Use wait(), notify(), notifyAll() only inside synchronized block.
+- We learnt a way how multiple threads can share variables.
+- Exception in thread "Thread-1" java.lang.IllegalMonitorStateException: current thread is not owner
+    - This error occurs when you try to call wait() outside the synchronized block or when wait() is not called on object on which lock
+    is acquired.
+- It is recommended to use wait() inside a while loop, where while loop constantly check condition. Why?
