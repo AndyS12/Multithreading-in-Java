@@ -1,0 +1,8 @@
+✅ How to use wait() and notifyAll() effectively for thread sequencing
+
+✅ Synchronization ensures atomic updates and correct ordering
+
+❌ Avoid using if for wait conditions — always prefer a while loop
+→ This helps avoid spurious wakeups and ensures correctness
+
+✅ Each thread actively checks if it’s their turn — using a shared state variable

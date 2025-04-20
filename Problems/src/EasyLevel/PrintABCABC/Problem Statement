@@ -1,0 +1,10 @@
+✅ Problem Statement:
+Create a Java program using three threads where:
+    Thread A prints "A"
+    Thread B prints "B"
+    Thread C prints "C"
+
+The goal is to print the sequence ABC repeatedly, say N times (for example, N = 5), so the final output would be:
+ABCABCABCABCABC
+
+Each thread must print only its own character, and the threads must coordinate so that the sequence always follows the A -> B -> C order.
