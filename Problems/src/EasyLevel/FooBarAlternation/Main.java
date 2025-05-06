@@ -4,29 +4,29 @@ import java.util.concurrent.Semaphore;
 
 public class Main {
     public static void main(String[] args) {
-        Semaphore pingSemaphore = new Semaphore(1);
-        Semaphore pongSemaphore = new Semaphore(0);
+        Semaphore fooSemaphore = new Semaphore(1);
+        Semaphore barSemaphore = new Semaphore(0);
 
         new Thread(() -> {
             while (true) {
                 try {
-                    pingSemaphore.acquire();
+                    fooSemaphore.acquire();
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
                 System.out.println("Foo printed by " + Thread.currentThread().getName());
-                pongSemaphore.release();
+                barSemaphore.release();
             }
         }).start();
         new Thread(() -> {
             while (true) {
                 try {
-                    pongSemaphore.acquire();
+                    barSemaphore.acquire();
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
                 System.out.println("Bar printed by " + Thread.currentThread().getName());
-                pingSemaphore.release();
+                fooSemaphore.release();
             }
         }).start();
     }
