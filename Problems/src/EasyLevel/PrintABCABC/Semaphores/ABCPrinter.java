@@ -1,53 +1,50 @@
 package EasyLevel.PrintABCABC.Semaphores;
 
+
 import java.util.concurrent.Semaphore;
 
 public class ABCPrinter {
 
-    private static final int PRINT_COUNT = 10;
-
-    private static Semaphore semA = new Semaphore(1); // A starts first
-    private static Semaphore semB = new Semaphore(0);
-    private static Semaphore semC = new Semaphore(0);
-
     public static void main(String[] args) {
+        Semaphore semA = new Semaphore(1);
+        Semaphore semB = new Semaphore(0);
+        Semaphore semC = new Semaphore(0);
+
+        int n = 3;
 
         Thread threadA = new Thread(() -> {
-            for (int i = 0; i < PRINT_COUNT; i++) {
+            for (int i = 0; i < n; i++) {
                 try {
                     semA.acquire();
-                    System.out.print("A");
-                    semB.release();
                 } catch (InterruptedException e) {
-                    Thread.currentThread().interrupt();
+                    throw new RuntimeException(e);
                 }
+                System.out.println("A " + Thread.currentThread().getName());
+                semB.release();
             }
         });
-
         Thread threadB = new Thread(() -> {
-            for (int i = 0; i < PRINT_COUNT; i++) {
+            for (int i = 0; i < n; i++) {
                 try {
                     semB.acquire();
-                    System.out.print("B");
-                    semC.release();
                 } catch (InterruptedException e) {
-                    Thread.currentThread().interrupt();
+                    throw new RuntimeException(e);
                 }
+                System.out.println("B " + Thread.currentThread().getName());
+                semC.release();
             }
         });
-
         Thread threadC = new Thread(() -> {
-            for (int i = 0; i < PRINT_COUNT; i++) {
+            for (int i = 0; i < n; i++) {
                 try {
                     semC.acquire();
-                    System.out.print("C");
-                    semA.release();
                 } catch (InterruptedException e) {
-                    Thread.currentThread().interrupt();
+                    throw new RuntimeException(e);
                 }
+                System.out.println("C " + Thread.currentThread().getName());
+                semA.release();
             }
         });
-
         threadA.start();
         threadB.start();
         threadC.start();

@@ -1,33 +1,37 @@
 package EasyLevel.PingPong;
 
+
 import java.util.concurrent.Semaphore;
 
 public class Main {
     public static void main(String[] args) {
-        Semaphore pingSemaphore = new Semaphore(1);
-        Semaphore pongSemaphore = new Semaphore(0);
+        Semaphore pingSemaphore = new Semaphore(1, true);
+        Semaphore pongSemaphore = new Semaphore(0, true);
+        int MAX_LIMIT = 5;
 
-        new Thread(() -> {
-            while (true) {
+        Thread thread1 = new Thread(() -> {
+            for (int i = 0; i < MAX_LIMIT; i++) {
                 try {
                     pingSemaphore.acquire();
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
-                System.out.println("Ping printed by " + Thread.currentThread().getName());
+                System.out.println("Foo + " + Thread.currentThread().getName());
                 pongSemaphore.release();
             }
-        }).start();
-        new Thread(() -> {
-            while (true) {
+        });
+        Thread thread2 = new Thread(() -> {
+            for (int i = 0; i < MAX_LIMIT; i++)  {
                 try {
                     pongSemaphore.acquire();
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
-                System.out.println("Pong printed by " + Thread.currentThread().getName());
+                System.out.println("Bar + " + Thread.currentThread().getName());
                 pingSemaphore.release();
             }
-        }).start();
+        });
+        thread1.start();
+        thread2.start();
     }
 }
