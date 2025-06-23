@@ -1,0 +1,8 @@
+Write a program that uses 4 threads to print numbers from 1 to n, replacing:
+
+=> Multiples of 3 with "Fizz"
+=> Multiples of 5 with "Buzz"
+=> Multiples of both 3 and 5 with "FizzBuzz"
+
+NOTE: Each thread should be responsible for printing only one of the above.
+

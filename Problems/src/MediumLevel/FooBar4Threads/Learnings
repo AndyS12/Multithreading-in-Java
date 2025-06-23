@@ -1,0 +1,6 @@
+You’ll learn:
+
+How thread synchronization works in Java
+The pitfalls of using wait() without notifyAll()
+Why semaphores provide better thread control
+How to avoid race conditions and deadlocks
